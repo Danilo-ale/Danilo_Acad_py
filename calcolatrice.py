@@ -12,7 +12,6 @@ while(True):
     operazioni=["+","-","*","/"]
     num1=int(input("inserisci il primo numero: "))
     num2=int(input("inserisci il secondo numero: "))
-    print(num1, num2)
     oper=input("inserisci l'operazione da svolgere (+,-, *, /): ")
 
 
@@ -21,7 +20,10 @@ while(True):
     elif(oper=="-"):
         print(num1-num2)
     elif(oper=="/"):
-        print(num1/num2)
+        if(num2==0):
+            print("Errore: Divisione per zero")
+        else:
+             print(num1/num2)
     elif(oper=="*"):
         print(num1*num2)
     else:
