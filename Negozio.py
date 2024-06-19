@@ -4,7 +4,7 @@ lista_prod=["papera", "anello","gomma"]
 lista_prez=[10,20,30]
 lista_quant=[3,4,5]
 acquisti_cliente=[]
-
+guadagno=0
 sel=input("Iniziare? ")
 if(sel.lower()=="si"):
     while True:    
@@ -21,10 +21,12 @@ if(sel.lower()=="si"):
                     if dec_acq=="si":
                         print("Prodotto acquistato")
                         lista_quant[lista_prod.index(sel_acq)]-=1
-                        acquisti_cliente.append=sel_acq
+                        acquisti_cliente.append(sel_acq)
+                        guadagno+=lista_prez[lista_prod.index(sel_acq)]
                         print("Quantita aggiornate:")
                         print(lista_quant)
-                        print("Acquisti cliente", acquisti_cliente)
+                        print("Acquisti cliente:", acquisti_cliente)
+                        print("Guadagno: ", guadagno)
                     else:
                         pass
                 else:
