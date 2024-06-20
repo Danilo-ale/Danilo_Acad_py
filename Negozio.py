@@ -3,6 +3,9 @@ lista_prod=["papera", "anello","gomma"]   #lista prodotti
 lista_prez=[10,20,30]   #lista prezzi
 lista_quant=[3,4,5] #lista quantità
 acquisti_cliente=[] #lista acquisti cliente
+
+lista_log=["pino", "ciccio"]
+lista_pas_log=["123", "45"]
 guadagno=0   #guadagno venditore
 sel=input("Iniziare? ")   #chiede se si vuole far iniziare il software
 if(sel.lower()=="si"):  #se si, inizia
@@ -108,9 +111,37 @@ if(sel.lower()=="si"):  #se si, inizia
             elif(scelta2.lower()=="no"):
                 scelta3=input("sei un amministratore? ")
                 if(scelta3.lower()=="si"):
-                    print("Benvenuto amministratore")
+                    nome=input("Inserisci nome amministratore: ")    #verifica credenziali
+                    passw=input("Inserisci password amministratore: ")
+                    if nome in lista_log: 
+                        if passw==lista_pas_log[lista_log.index(nome)]:   #se nome utente e pass coincidono visualizza il menù
+                            while True:
+                                print("Benvenuto amministratore")
+                                print("Visualizzazione menù:")
+                                print("1. Visualizza rapporto vendite")
+                                print("2. Visualizza lo stato corrente dell'inventario")
+                                print("3. Visualizza i guadagni totali")
+                                selez=input("Seleziona una delle opzioni: ")
+                                if selez=="1":
+                                    print("Visualizzazione oggetti venduti: ")   #visualizza il rapport vendite
+                                    print(acquisti_cliente)
+                                elif selez=="2":
+                                    print("Visualizzazione inventario: ")   #visualizza prod e quantità per ogni elemento
+                                    for item in lista_prod:
+                                        print(item, ", quantità:", lista_quant[lista_prod.index(item)])
+                                elif selez=="3":    #visualizza i guadagni totali
+                                    print("Guadagni totali:", guadagno)
+                                else:       #se ha sbagliato a scegliere tra le opzioni, visualizza errore
+                                    print("selezione sbagliata")   
+                                contin=input("Continuare? ")
+                                if contin.lower()=="no":
+                                    break
+
+                    else:
+                        print("Nome utente sbagliato")  #se il nome utente non trova corrispondenza nella lista, visualizza errore
+
                 else:
-                    print("Chiusura")
+                    print("Chiusura")  #se non è un cliente, nè gestore inventario nè amministratore, chiude
                     break
     
 else:
