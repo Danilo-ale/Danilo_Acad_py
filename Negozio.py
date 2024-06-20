@@ -1,7 +1,7 @@
 
 lista_prod=["papera", "anello","gomma"]   #lista prodotti 
 lista_prez=[10,20,30]   #lista prezzi
-lista_quant=[3,4,5] #lista quantità
+lista_quant=[0,4,5] #lista quantità
 acquisti_cliente=[] #lista acquisti cliente
 
 lista_log=["pino", "ciccio"]
@@ -15,9 +15,10 @@ if(sel.lower()=="si"):  #se si, inizia
             print("Benvenuto cliente")
             while True:     #ripete fino a quando si vuole acquistare
                 print("Visualizzazione prodotti")
-                print(lista_prod)  #visualizza i prodotti
+                for item in lista_prod:  #visualizza i prodotti con quantità
+                    print(item, "Quantità: ", lista_quant[lista_prod.index(item)])
                 sel_acq=input("Cosa vuoi acquistare? ")  #si chiede al cliente cosa si vuole acquistare
-                if sel_acq.lower() in lista_prod:   #se il prodotto selezionato è nella lista dei prodotti..
+                if sel_acq.lower() in lista_prod and lista_quant[lista_prod.index(sel_acq)]:   #se il prodotto selezionato è nella lista dei prodotti..
                     print("Prezzo di", sel_acq,":", lista_prez[lista_prod.index(sel_acq)])   #... visualizza il prezzo del prodotto
                     dec_acq=input("Vuoi acquistare? ")   #chiede se si vuole acquistare
                     if dec_acq=="si":   #se si...
@@ -32,7 +33,7 @@ if(sel.lower()=="si"):  #se si, inizia
                     else:
                         pass   #se non si vuole acquistare dopo aver visto il prezzo, continua avanti
                 else:
-                    print("Prodotto non presente in lista") #se il prodotto digitato non è nella lista, lo segnala in output
+                    print("Prodotto non presente in lista o quantità terminate") #se il prodotto digitato non è nella lista, lo segnala in output
                 cont=input("vuoi continuare? ")   #si chiede se si vuole continuare con l'acquisto
                 if(cont.lower()=="no"):  #se no...
                     break   #...esce
