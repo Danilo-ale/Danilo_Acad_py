@@ -3,7 +3,7 @@ def Fibonacci(max):
     a=1         #fn-2
     b=1         #fn-1
     sum=0
-    print(a)        #stampa per visualizzare la seq. di Fibonacci
+    print(a)        #stampa per iniziare a visualizzare la seq. di Fibonacci
     print(b)
     controllo=0
     while True:      #ripete fino a quando sum<max
