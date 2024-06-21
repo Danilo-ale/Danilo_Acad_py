@@ -14,7 +14,7 @@ def Fibonacci(max):
         
         if sum>max:     #se sum diventa > max
             print("Numero che sfora il max: ",sum)
-            break   #termina il break
+            break   #termina il while
         else:
             print(sum)
     return controllo        #e ritorna la variabile controllo, che ha il valore precedente di somma (che è diventato maggiore di max)
