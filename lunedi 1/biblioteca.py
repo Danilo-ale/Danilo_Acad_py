@@ -11,16 +11,13 @@ class Libri:
 
 class Biblioteca:
     libreria=[]
-    def CreaLibro(self):
-        
-        id=0
+    def CreaLibro(self):       
         while True:
             autore=input("Inserisci autore: ")
             titolo=input("Inserisci titolo: ")
             pagine=input("Inserisci numero di pagine: ")
             libro=Libri(autore,titolo,pagine)
             Biblioteca.libreria.append(libro)
-            id+=1
             scelta=input("Continuare? ").lower()
             if scelta!="si":
                 break
