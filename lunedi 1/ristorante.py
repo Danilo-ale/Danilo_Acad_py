@@ -95,7 +95,7 @@ while True:
         except:
             print("Errore")
         try:
-            costo=int(input("Inserisci il nuovo piatto: "))
+            costo=int(input("Inserisci il nuovo costo: "))
         except:
             print("Errore")
         risto1.aggiungi_al_menu(piatto, costo)
