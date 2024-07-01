@@ -58,7 +58,18 @@ def versamento(nome,cognome,password):
         riga=",".join(riga)    
         lista=lista+riga+"\n"
         with open("3 settimana\\credenziali.txt", "w") as file:   #aggiornamento file
-            file.write(lista)   
+            file.write(lista)  
+
+
+def visualizza_conto(nome,cognome,password):
+    with open("3 settimana\\credenziali.txt", "r") as file:         #versamento
+        contenuto=file.read()
+    righe=contenuto.split("\n")
+    lista=""
+    for riga in righe:
+        riga=riga.split(",")
+        if password== riga[0] and nome ==riga[1] and cognome==riga[2]:
+           print(f"Nome cliente: {nome}, Cognome: {cognome}, Conto: {riga[3]}")
 
 while True:
     nome=input("Inserisci nome: ")
@@ -73,15 +84,20 @@ while True:
                 preleva(nome,cognome,password)
             elif scelta=="2":
                 versamento(nome,cognome,password)
-
             elif scelta=="3":
-                pass
+                visualizza_conto(nome,cognome,password)
             elif scelta=="4":
                 exit()
             else:
                 print("Selezione sbagliata")
+            scelta=input("Continuare con lo stesso cliente? ")
+            if scelta.lower()!="si":
+                break
     else:
         print("Cliente non presente")
+    scelta=input("Continuare con il programma? ")
+    if scelta.lower()!="si":
+        break
         
     
 
