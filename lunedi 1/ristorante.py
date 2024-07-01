@@ -1,3 +1,16 @@
+#classe Partita IVA
+class Partive_iva:
+    nome=""
+    cognome=""
+    data_inizio=""
+    
+    def __init__(self, nome, data_inizio):       #costruttore oggetto
+        self.nome=nome
+        self.data_inizio=data_inizio
+    def __str__(self):  
+        return f"Nome titolare \"{self.nome}\", data inizio attività: {self.data_inizio}" 
+
+
 #classe ristoranti
 class Ristoranti:           
     nome=""
@@ -7,8 +20,20 @@ class Ristoranti:
         self.nome=nome
         self.tipo_cucina=tipo_cucina
         self.aperto=False
+        try:        #try except per inserimento nome titolare
+            nome_titotare=input("Inserisci il nome del titolare: ")
+        except:
+            print("Errore nell'inserimento del nome titolare.")
+        while True:         #ripete il ciclo fino a quando l'utente inserisce il formato di data corretto 
+            try:
+                anno,mese,giorno=input("Inserisci data nel formato AAAA-MM-GG: ").split("-")
+                break
+            except:
+                print("Formato errato.")
+        data=anno+"-"+mese+"-"+giorno       #concatenamento formato data
+        self.p_iva=Partive_iva(nome_titotare,data)      #costruzione nuovo oggetto Partita IVA
     def descrivi_ristorante(self):  #funzione descrivi
-        print(f"Benvenuto al ristorante \"{self.nome}\". Il suo tipo di cucina è \"{self.tipo_cucina}\"")
+        print(f"Benvenuto al ristorante \"{self.nome}\". Il suo tipo di cucina è \"{self.tipo_cucina}\" \nDettagli ristorante: {self.p_iva.__str__()}")
 
     def stato_apertura(self):
         if self.aperto==False:
@@ -23,13 +48,20 @@ class Ristoranti:
     
     def aggiungi_al_menu(self,piatto,costo):        #funzione aggiungi piatto al menù
         if piatto not in self.menu.keys():  #verifica che non sia già presente nel menu
-            self.menu[piatto]=costo
+            self.menu[piatto]=costo     #inserimento del nuovo piatto e costo nel dizionario
         else:
-            print("Piatto già presente!")       #se è già presente, visualizza un messaggio di errore
-
+            print("Piatto già presente!")       #se è già presente, visualizza un messaggio di avviso, 
+            #ma chiede se si vuole scambiare il prezzo nel menu con quello inserito
+            scelta=input(f"Vuoi forse modificare il prezzo del piatto \"{piatto}\" da {self.menu[piatto]} in {costo}? ").lower()
+            if scelta=="si":
+                self.menu[piatto]=costo     #se risponde sì, si modifica il costo del piatto
+                print("Prezzo modificato!")
+            else:
+                print("Uscita dall'opzione")    #altrimenti si esce senza fare alcuna modifica
     def togli_dal_menu(self,piatto):        #funzione elimina piatto dal menù
         if piatto in self.menu.keys():      #verifica che non sia già presente nel menu
             del self.menu[piatto]       #rimozione piatto dal dizionario
+            print("Piatto eliminato!")
         else:
             print("Piatto non presente")
 
@@ -40,10 +72,13 @@ class Ristoranti:
                 print(f"{piatto}, costo: {self.menu[piatto]}")  #visualizzazione nome e costo di ciascun piatto 
         else:
             print("Menù vuoto!")
-
+    def getPartitaIva(self):
+        return self.p_iva.__str__()
             
 #creazione oggetto risto1
-risto1=Ristoranti("Trattoria da gino", "Sushi")
+risto1=Ristoranti("Trattoria da gino", "Sushi")     #dopo questa istruzione viene richiesta la
+
+#print(risto1.p_iva)
 
 #menù opzioni
 def opzioni():
@@ -54,6 +89,7 @@ def opzioni():
 5. Aggiungi piatto al menu
 6. Togli piatto dal menu
 7. Visualizza menù
+8. Visualizza dettagli Partita IVA
 0. Esci dal programma
 """)
 
@@ -96,6 +132,8 @@ while True:
         risto1.togli_dal_menu(piatto)
     elif scelta=="7":   #Visualizza menù
         risto1.stampa_menu()
+    elif scelta=="8":
+        print(risto1.getPartitaIva())
     elif scelta=="0":       #Esci dal programma
         exit()
     else:
