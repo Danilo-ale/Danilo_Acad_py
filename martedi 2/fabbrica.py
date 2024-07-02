@@ -5,7 +5,6 @@ class Fabbriche:
     
     def aggiungi_prodotto(self, nome_prod):     #AGGIUNGI PRODOTTO
         nome_prod=input("Inserisci il nome del prodotto: ")
-                                                   #CREA NUOVO OGGETTO PRODOTTO
         if nome_prod not in self.invent.keys():     #VERIFICA CHE IL NOME DEL PRODOTTO NON SIA NEL DIZIONARIO
             self.invent[nome_prod]=1        #AGGIUNGE IL PRODOTTO AL DIZIONARIO 
             self.prod=Prodotti(nome_prod)   #E CREA L'OGGETTO
