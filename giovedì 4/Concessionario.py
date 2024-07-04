@@ -40,81 +40,104 @@ class Auto(Veicolo):
         self.__richiesta=True
     
     def get_stato_richiesta(self):
-        return self.stato_richiesta
+        return self.stato_richiesta     #equivale a "sì" o "no" per indicare se richiesto (true) o no (false). 
 
     
     def get_stato_vendita(self):
-        return self.stato_vendita
+        return self.stato_vendita   ##equivale a "sì" o "no" per indicare se venduta (true) o no (false). 
     
     #metodo per riassunto caratteristiche auto
-    def mostra(self):
+    def mostra(self):           #GLI IF TRASFORMANO TRUE O FALSE IN "Sì" O "NO"
         if self.get_richiesta()==True:
-            self.stato_richiesta="si"
+            self.stato_richiesta="Sì"
         else:
-            self.stato_richiesta="no"
+            self.stato_richiesta="No"
         if self.get_venduto()==True:
-            self.stato_vendita="si"
+            self.stato_vendita="Sì"
         else:
-            self.stato_vendita="no"
-        return f"TIPO:{self.get_tipo()}--> {self.get_marca()} {self.get_modello()}. Anno {self.get_anno()}. Stato vendita: {self.get_stato_vendita()}. Stato Richiesta: {self.get_stato_richiesta()}"
+            self.stato_vendita="No"
+        return f"TIPO:{self.get_tipo()}--> {self.get_marca()} {self.get_modello()}. Anno {self.get_anno()}. Venduta? {self.get_stato_vendita()}. Richiesta? {self.get_stato_richiesta()}"
 
+#CLASSE CONCESSIONARIO
 class Concessionario(Auto):
     def __init__(self, nome):
         self.__nome=nome
         self.lista_ogg=[]
-        self.auto_ric=[]
-        self.auto_ric_nol=[]
+        self.auto_ric=[]        #LISTA AUTO RICHIESTE PER LA VENDITA
+        self.quant_auto_ric=[]  #LISTA PARALLELA (PER MEMORIZZARE LE QUANTITA' DELLA RICHIESTA)
 
-    def aggiungi_veicolo(self, veicolo):
+        self.auto_ric_nol=[]    #LISTA AUTO RICHIESTA PER IL NOLEGGIO
+        self.quant_auto_ric_nol=[]  #LISTA PARALLELA (PER MEMORIZZARE LE QUANTITA' DELLA RICHIESTA)
+
+
+    def aggiungi_veicolo(self, veicolo):        #AGGIUNGE VEICOLO
         self.lista_ogg.append(veicolo)
+    
+    #GETTER NOME CONCESSIONARIO
+    def get_nome(self):
+        return self.__nome
+    
+    def __str__(self) -> str:
+        return f"Benvenuto al Concessionario di 🚗 {self.get_nome()} 🚗. Come posso aiutarti?"
 
+    #VISUALIZZA LE AUTO RICHIESTE PER LA VENDITA
     def visualizza_auto_richieste(self):
         if len(self.auto_ric)>0:
             print("Auto richieste per vendita: ")
             for auto in self.auto_ric:
-                print(auto)
+                print(f"--> {auto}. Richiesta: {self.quant_auto_ric[self.auto_ric.index(auto)]} volta/e")
         else:
-            print("---Nessun auto richiesta per la vendita---")
+            print("---Nessun auto richiesta per la vendita ⚠️ ---")
         
+        #VISUALIZZA LE AUTO RICHIESTE PER IL NOLEGGIO
         if len(self.auto_ric_nol)>0:
             print("Auto richieste per noleggio: ")
             for auto in self.auto_ric_nol:
-                print(auto)
+                print(f"-->{auto}. Richiesta {self.quant_auto_ric_nol[self.auto_ric_nol.index(auto)]} volta/e")
         else:
-            print("---Nessun auto per noleggio richiesta---")
+            print("---Nessun auto per noleggio richiesta ⚠️ ---")
 
+    #AGGIUNGE LE AUTO CHE VENGONO RICHIESTE PER LA VENDITA NELL'APPOSITA LISTA
     def lista_auto_richieste_vendita(self, marca,modello):
         trovato=False
         for veicolo in self.lista_ogg:     
             if veicolo.get_marca()==marca and veicolo.get_modello()==modello:
                 stringa=marca+" "+modello
-                self.auto_ric.append(stringa)
+                if stringa not in self.auto_ric:
+                    self.auto_ric.append(stringa)
+                    self.quant_auto_ric.append(1)
+                else:
+                    self.quant_auto_ric[self.auto_ric.index(stringa)]+=1
                 veicolo.set_richiesta()
                 trovato=True
         if trovato:
-            print("Veicolo per vendita richiesto")
+            print("Veicolo per vendita richiesto ✅")
         else:
-            print("Veicolo non trovato")
+            print("Veicolo non trovato ❌")
         
     def lista_auto_richieste_noleggio(self, marca,modello):
         trovato=False
         for veicolo in self.lista_ogg:     
             if veicolo.get_marca()==marca and veicolo.get_modello()==modello:
                 stringa=marca+" "+modello
-                self.auto_ric_nol.append(stringa)
+                if stringa not in self.auto_ric_nol:
+                    self.auto_ric_nol.append(stringa)
+                    self.quant_auto_ric_nol.append(1)
+                else:
+                    self.quant_auto_ric_nol[self.auto_ric.index(stringa)]+=1
                 veicolo.set_richiesta()
                 trovato=True
         if trovato:
-            print("Veicolo per noleggio richiesto")
+            print("Veicolo per noleggio richiesto ✅")
         else:
-            print("Veicolo non trovato")
+            print("Veicolo non trovato ❌")
 
     def lista_veicoli(self):
         if len(self.lista_ogg)>0:
             for veicolo in self.lista_ogg:
                 print(veicolo.mostra())
         else:
-            print("Nessuno veicolo presente in concessionaria")
+            print("Nessuno veicolo presente in concessionaria ⚠️")
     def rimuovi_veicoli(self, marca, modello):
         trovato=False
         for veicolo in self.lista_ogg:     
@@ -122,20 +145,20 @@ class Concessionario(Auto):
                 self.lista_ogg.remove(veicolo)
                 trovato=True
         if trovato:
-            print("Veicolo rimosso")
+            print("Veicolo rimosso ✅")
         else:
-            print("Veicolo non trovato")
+            print("Veicolo non trovato ❌")
     
     def vendi_veicolo(self,marca,modello):
         trovato=False
         for veicolo in self.lista_ogg:     
-            if veicolo.get_marca()==marca and veicolo.get_modello()==modello:
+            if veicolo.get_marca()==marca and veicolo.get_modello()==modello and veicolo.get_venduto()==False:
                 veicolo.set_venduto()
                 trovato=True
         if trovato:
-            print("Veicolo venduto")
+            print("Veicolo venduto ✅")
         else:
-            print("Veicolo non trovato")
+            print("Veicolo non trovato o già venduto❌")
 
 def menu_conc():
     print("""\n1. Visualizza veicoli concessionario
@@ -143,13 +166,15 @@ def menu_conc():
 3. Rimuovi veicolo
 4. Vendi veicolo
 5. Visualizza auto richieste
-0. Esco
+0. Esci
 """)
 conc1=Concessionario("AutoHero")
 a1=Auto("audi", "a4", 2010, 5)
 conc1.aggiungi_veicolo(a1)
 
 def titolare():
+    print("~~~SEZIONE PRIVATA~~~")
+    print(conc1)
     while True:
         menu_conc()
         scelta=input("Inserisci un'opzione: ")
@@ -158,8 +183,18 @@ def titolare():
         elif scelta=="2":
             marca=input("Inserisci la marca del veicolo: ")
             modello=input("Inserisci il modello del veicolo: ")
-            anno=input("Inserisci l'anno del veicolo: ")
-            n_porte=input("Inserisci il numero di porte del veicolo: ")
+            while True:
+                try:
+                    anno=int(input("Inserisci l'anno del veicolo: "))
+                    break
+                except ValueError as e:
+                    print("Errore: ",e)
+            while True:
+                try:
+                    n_porte=int(input("Inserisci il numero di porte del veicolo: "))
+                    break
+                except ValueError as e:
+                    print("Errore ",e)
             ogg=Auto(marca,modello,anno,n_porte)
             conc1.aggiungi_veicolo(ogg)
         elif scelta=="3":
@@ -180,14 +215,14 @@ def titolare():
 
 
 def menu_cliente():
-    print("""1. Visualizza veicoli concessionario
+    print("""\n1. Visualizza veicoli concessionario
 2. Richiedi vendita auto
 3. Richiedi auto a noleggio
-0. Esci
+0. Esci 
 """)
 
 def cliente():
-    print("Benvenuto nel concessionario")
+    print(conc1)
     while True:       
         menu_cliente()
         scelta=input("Inserisci un'opzione: ")
