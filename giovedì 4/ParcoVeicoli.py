@@ -16,10 +16,10 @@ class Auto(Veicolo):
         super().__init__(marca, modello, anno)
         self.__numero_porte=numero_porte
     
-    def __suona_clacson(self):
+    def suona_clacson(self):
         print("BEEEEEP")
     
-    def _get_tipo(self):
+    def __get_tipo(self):
         return "Auto"
 
     def __get_marca(self):
@@ -27,9 +27,9 @@ class Auto(Veicolo):
 
     def __get_modello(self):
         return self.__modello
-    
+"""    
     def __str__(self) -> str:
-        return f"Tipo veicolo: {self._get_tipo()}. {self.__marca} {self.__modello}. "
+        return f"Tipo veicolo: {self.get_tipo()}. {self.__marca} {self.__modello}. """
 
 class Furgone(Veicolo):
     pass
@@ -37,7 +37,7 @@ class Furgone(Veicolo):
 class Motocicletta(Veicolo):
     pass
 
-class GestoreParcoVeicoli():
+class GestoreParcoVeicoli(Auto):
     def __init__(self, nome):
         self.__nome=nome
         self.__parco_veicoli={}
@@ -49,11 +49,11 @@ class GestoreParcoVeicoli():
 
     def aggiungi_veicolo(self, veicolo):
         self.lista_ogg.append(veicolo)
-        self.__parco_veicoli[veicolo._get_tipo()]+=1
+        #self.__parco_veicoli[veicolo.__get_tipo()]+=1
     
     def lista_veicoli(self):
         for veicolo in self.lista_ogg:
-            print(veicolo)
+            print( f"Tipo veicolo: {veicolo.__get_tipo()}. {veicolo.__get_tipo()} {veicolo.__get_modello()}. ")
         
     
 g1=GestoreParcoVeicoli("Carburatori & co.")
