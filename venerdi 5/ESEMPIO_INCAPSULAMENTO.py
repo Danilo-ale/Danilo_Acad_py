@@ -9,3 +9,18 @@ I vari metodi per implementare una forma di incapsulamento sono: 1. Utilizzo di 
      di ottenere e modificare gli attributi privati di una classe. 
 """
 
+class ContoBancario:
+    def __init__(self, nome_titolare, saldo):
+        self.__nome_titolare = nome_titolare
+        self.__saldo = saldo
+
+    # Getter per ottenere il nome del titolare del conto
+    def get_nome_titolare(self):
+        return self.__nome_titolare
+    def set_nome_titolare(self,nome):
+        self.__nome_titolare=nome
+
+c1=ContoBancario("Pino",300)
+print(c1.get_nome_titolare())
+c1.set_nome_titolare("gianni")
+print(c1.get_nome_titolare())
