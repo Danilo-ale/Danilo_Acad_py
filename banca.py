@@ -1,108 +1,180 @@
-"""
-Banca con file .csv
+"""Create un gestionale bancario basato sulla programmazione a oggetti, 
+la prima parte dell'esercizio riguarda solamente aggiunta e 
+eliminazione cliente con il suo conto bancario e modifica cliente"""
 
-"""
+class Cliente:
+    def __init__ (self, nome, età,carta_credito,cvc,saldo=0):
 
+        self.__nome=nome
+        self.__età=età
+        self.__carta_credito=carta_credito
+        self.__cvc=cvc
+        self.__saldo=float(saldo)
 
+    def get_nome(self): 
+        return self.__nome
+    
+    def get_cvc(self):
+        return self.__cvc
 
-def verifica_utente(nome,cognome,password):                         #verifica credenziali
-    ver=False
-    with open("3 settimana\\credenziali.txt", "r") as file:
-        contenuto=file.read()
-    righe=contenuto.split("\n")
-    for riga in righe:
-        riga=riga.split(",")
-        if password== riga[0] and nome ==riga[1] and cognome==riga[2]:
-            ver= True
-    return ver
+    def get_saldo(self):
+        return self.__saldo
 
+    def deposito(self, importo):
+        importo=float(importo)
+        self.__saldo+=importo
+        print(f"Deposito di {importo} euro effettuato.")
+    
+    def set_nome(self, nome):
+        self.__nome = nome
 
-#menu
-def menu():
-    print("1. Preleva")
-    print("2. Versamento")
-    print("3. Visualizza conto")
-    print("4. Esci")
+    def preleva(self, importo):
+        importo=float(importo)
+        if importo <= self.__saldo:
+            self.__saldo -= importo
+            print(f"Prelievo di {importo} euro effettuato.")
+        else:
+            print(f"Saldo insufficiente per effettuare il prelievo. Saldo corrente: {self.get_saldo()}")
 
-def preleva(nome,cognome,password):
-    with open("3 settimana\\credenziali.txt", "r") as file:
-        contenuto=file.read()
-    righe=contenuto.split("\n")
-    lista=""
-    for riga in righe:
-        riga=riga.split(",")
-        if password== riga[0] and nome ==riga[1] and cognome==riga[2]:
-            prelievo=input("inserisci somma da prelevare: ")
-            prelievo=int(prelievo)
-            if prelievo <=int(riga[3]):
-                riga[3]=int(riga[3])
-                riga[3]-=prelievo
-                riga[3]=str(riga[3])
-        riga=",".join(riga)
-        lista=lista+riga+"\n"
-    with open("3 settimana\\credenziali.txt", "w") as file:   #aggiornamento file
-        file.write(lista)
+    def paga(self, importo):
+        importo=float(importo)
+        if importo <= self.__saldo:
+            self.__saldo -= importo
+            print(f"Pagamento di {importo} euro effettuato.")
+        else:
+            print(f"Saldo insufficiente per effettuare il pagamento. Saldo corrente: {self.get_saldo()}")
 
+class GestoreBanca(Cliente):
+    def __init__(self):
+        self.__clienti = []
+    
+    def aggiungi_cliente(self,cliente):
+        self.__clienti.append(cliente)
+    
+    def pagamento(self,nome,cvc,importo):
+        trovato = False
+        for cliente in self.__clienti:
+            if nome == cliente.get_nome() and cvc == cliente.get_cvc():
+                cliente.paga(importo)               
+                trovato=True
+        if trovato == False:
+            print("Cliente non trovato")
 
-def versamento(nome,cognome,password):
-    with open("3 settimana\\credenziali.txt", "r") as file:         #versamento
-        contenuto=file.read()
-    righe=contenuto.split("\n")
-    lista=""
-    for riga in righe:
-        riga=riga.split(",")
-        if password== riga[0] and nome ==riga[1] and cognome==riga[2]:
-            vers=int(input("Inserisci somma da versare: "))
-            riga[3]=int(riga[3])+vers
-            riga[3]=str(riga[3])
-        riga=",".join(riga)    
-        lista=lista+riga+"\n"
-        with open("3 settimana\\credenziali.txt", "w") as file:   #aggiornamento file
-            file.write(lista)  
-
-
-def visualizza_conto(nome,cognome,password):
-    with open("3 settimana\\credenziali.txt", "r") as file:         #versamento
-        contenuto=file.read()
-    righe=contenuto.split("\n")
-    lista=""
-    for riga in righe:
-        riga=riga.split(",")
-        if password== riga[0] and nome ==riga[1] and cognome==riga[2]:
-           print(f"Nome cliente: {nome}, Cognome: {cognome}, Conto: {riga[3]}")
-
-while True:
-    nome=input("Inserisci nome: ")
-    cognome=input("inserisci cognome: ")
-    password=input("Inserisci password: ")
-    ver=verifica_utente(nome,cognome,password)
-    if ver==True:
-        while True:
-            menu()
-            scelta=input("Inserisci una scelta: ")
-            if scelta=="1":
-                preleva(nome,cognome,password)
-            elif scelta=="2":
-                versamento(nome,cognome,password)
-            elif scelta=="3":
-                visualizza_conto(nome,cognome,password)
-            elif scelta=="4":
-                exit()
-            else:
-                print("Selezione sbagliata")
-            scelta=input("Continuare con lo stesso cliente? ")
-            if scelta.lower()!="si":
-                break
-    else:
-        print("Cliente non presente")
-    scelta=input("Continuare con il programma? ")
-    if scelta.lower()!="si":
-        break
-        
+    def prelievo(self,nome,cvc,importo):
+        trovato = False
+        for cliente in self.__clienti:
+            if nome == cliente.get_nome() and cvc == cliente.get_cvc():
+                cliente.preleva(importo)               
+                trovato=True
+        if trovato == False:
+            print("Cliente non trovato")
     
 
+    def deposito(self,nome,cvc,importo):
+        trovato = False
+        for cliente in self.__clienti:
+            if nome == cliente.get_nome() and cvc == cliente.get_cvc():
+                cliente.deposito(importo)               
+                trovato=True
+        if trovato == False:
+            print("Cliente non trovato")
 
-#print(database)
+    def rimuovi_cliente(self, nome, cvc):
+        for cliente in self.__clienti:
+            if nome == cliente.get_nome() and cvc == cliente.get_cvc():
+                self.__clienti.remove(cliente)
+                print("Cliente rimosso.")
+            else:
+                print("Cliente non registrato")
+    
+    def modifica_nome(self,nome,cvc,nuovo_nome):
+        trovato = False
+        for cliente in self.__clienti:
+            if nome == cliente.get_nome() and cvc == cliente.get_cvc():
+                cliente.set_nome(nuovo_nome)                
+                trovato=True
+        if trovato == True:
+            print("Hai modificato il nome")
+        else:
+            print("Utente non trovato")
+    
+    def lista_clienti(self):
+        for cliente in self.__clienti:
+            print(f"Lista clienti: {cliente.get_nome()}. Saldo: {cliente.get_saldo()}")
+        
+cl1=Cliente("Pino",45, 1234, 123, 1000)
 
+def menu():
+    print("""\n1. Apri conto
+2. Chiudi conto
+3. Modifica cliente
+4. Lista clienti
+5. Pagamento
+6. Deposito
+7. Prelievo          
+0. Esci
+""")
+    
 
-#print(database)
+banca=GestoreBanca()
+banca.aggiungi_cliente(cl1)
+
+while True:
+    menu()
+    scelta=input("Inserisci la scelta: ")
+    if scelta=="1":
+        while True:
+            nome=input("Inserisci il nome del nuovo cliente: ")
+            if nome.isalpha():
+                break
+            else:
+                print("Inserisci solo lettere: ")
+        while True:
+            try:
+                eta=int(input("Inserisci l'età del cliente: "))
+                break
+            except:
+                print("ERRORE")
+        while True:
+            try:
+                carta_credito=int(input("Inserisci il numero della carta di credito: "))
+                break
+            except:
+                print("ERRORE")
+        while True:
+            cvc=input("Inserisci il cvc della carta: ")
+            if len(cvc)!=3:
+                print("cvc non conforme: ")
+            else:
+                break
+        nuovo_cliente=Cliente(nome, eta,carta_credito,cvc)
+        banca.aggiungi_cliente(nuovo_cliente)
+        print("Cliente aggiunto con successo.")
+    elif scelta=="2":       #RIMUOVI CLIENTE
+        nome=input("Inserisci il nome del cliente: ")
+        cvc=int(input("Inserisci il cvc della carta: "))
+        banca.rimuovi_cliente(nome,cvc)
+    elif scelta=="3":
+        nome=input("Inserisci il vecchio nome del cliente: ")
+        cvc=int(input("Inserisci il cvc della carta: "))
+        nuovo_nome=input("Inserisci il nuovo nome del cliente: ")
+        banca.modifica_nome(nome,cvc,nuovo_nome)
+    elif scelta == "4":
+        banca.lista_clienti()
+    elif scelta=="5":
+        nome=input("Inserisci il nome del cliente: ")
+        cvc=int(input("Inserisci il cvc della carta: "))
+        importo=input("Inserisci l'importo da pagare: ")
+        banca.pagamento(nome,cvc,importo)
+    elif scelta=="6":
+        nome=input("Inserisci il nome del cliente: ")
+        cvc=int(input("Inserisci il cvc della carta: "))
+        importo=float(input("Inserisci l'importo da depositare: "))
+        banca.deposito(nome,cvc,importo)
+    elif scelta=="7":
+        nome=input("Inserisci il nome del cliente: ")
+        cvc=int(input("Inserisci il cvc della carta: "))
+        importo=input("Inserisci l'importo da prelevare: ")
+        banca.prelievo(nome,cvc,importo)
+    elif scelta=="0":
+        break
