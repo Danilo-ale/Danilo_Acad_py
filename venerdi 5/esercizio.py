@@ -32,24 +32,27 @@ class Pikachù(Pokemon):
     def attacca(self):
         attacco = 0
         while True:
-            a = input("Seleziona:\n1: Azione\n2: Attacco Rapido\n3: Fulmine\n")
+            a = input("E' IL TUO TURNO:\n1: Azione\n2: Attacco Rapido\n3: Fulmine\nSeleziona attacco: ")
             if a == "1":
                 attacco = self.mosse["Azione"]
                 print("Azione")
                 return attacco
             elif a == "2":
-                attacco = 15
+                attacco = self.mosse["Attacco Rapido"]
                 print("Attacco rapido")
                 return attacco
             elif a == "3":
-                attacco = 25
+                attacco = self.mosse["Fulmine"]
                 print("Fulmine")
                 return attacco
             else:
                 print("Errore")
     
     def info(self):
-        print(f"La sua razza è {self.razza}, il suo tipo è {self.tipo},i suoi hp sono: {self.hp}")
+        if self.__nome!="":
+            print(f"Il pokemon si chiama {self.__nome}. La sua razza è {self.razza}, il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
+        else:
+            print(f"La sua razza è {self.razza}, il suo tipo è {self.tipo},i suoi hp sono: {self.hp}")
 
 class Squirtle(Pokemon):
     razza = "Squirtle"
@@ -71,18 +74,18 @@ class Squirtle(Pokemon):
     def attacca(self):
         attacco = 0
         while True:
-            a = input("Seleziona:\n1: Azione\n2: Attacco Rapido\n3: Pistol acqua\n")
+            a = input("E' IL TUO TURNO:\n1: Azione\n2: Attacco Rapido\n3: Pistol acqua\nSeleziona attacco: ")
             if a == "1":
-                attacco = 20
+                attacco = self.mosse["Azione"]
                 print("Azione")
                 return attacco
             elif a == "2":
-                attacco = 15
+                attacco = self.mosse["Attacco Rapido"]
                 print("Attacco rapido")
                 return attacco
             elif a == "3":
                 attacco = 25
-                print("Pistol acqua")
+                attacco = self.mosse["Pistol acqua"]
                 return attacco
             else:
                 print("Errore")
@@ -110,17 +113,17 @@ class Bulbasaur(Pokemon):
     def attacca(self):
         attacco = 0
         while True:
-            a = input("Seleziona:\n1: Azione\n2: Attacco Rapido\n3: Fendi foglia\n")
+            a = input("E' IL TUO TURNO:\n1: Azione\n2: Attacco Rapido\n3: Fendi foglia\nSeleziona attacco: ")
             if a == "1":
-                attacco = 20
+                attacco = self.mosse["Azione"]
                 print("Azione")
                 return attacco
             elif a == "2":
-                attacco = 15
+                attacco = self.mosse["Attacco Rapido"]
                 print("Attacco rapido")
                 return attacco
             elif a == "3":
-                attacco = 25
+                attacco = self.mosse["Fendi foglia"]
                 print("Fendi foglia")
                 return attacco
             else:
@@ -143,17 +146,17 @@ class Charmander(Pokemon):
     def attacca(self):
         attacco = 0
         while True:
-            a = input("Seleziona:\n1: Azione\n2: Attacco Rapido\n3: Lancia fiamme\n")
+            a = input("E' IL TUO TURNO:\n1: Azione\n2: Attacco Rapido\n3: Lancia fiamme\nSeleziona attacco: ")
             if a == "1":
-                attacco = 20
+                attacco = self.mosse["Azione"]
                 print("Azione")
                 return attacco
             elif a == "2":
-                attacco = 15
+                attacco = self.mosse["Attacco Rapido"]
                 print("Attacco rapido")
                 return attacco
             elif a == "3":
-                attacco = 25
+                attacco = self.mosse["Lancia fiamme"]
                 print("Lancia fiamme")
                 return attacco
             else:
@@ -191,11 +194,15 @@ class Pokedex:
             print("Il pokemon con questo nome è già presente nel pokedex")
         
     def ritorna_pok(self):
-        pass
+        pass        #FUNZIONE PER SCEGLIERE IL POKEMON TRA IL POKEDEX
 
-
-def menu():
-    print("1. Ricerca e cattura Pokemon\n2.Visualizza Pokedex\n")
+    
+    def lista_oggetti_dett(self):
+        x=1
+        for pokemon in self.lista_ogg:
+            print(f"--->{x}. ",end="")
+            pokemon.info()
+            x+=1
 
 pok1=Pokedex()     #POKEDECK
 
@@ -208,36 +215,33 @@ def tipi_pok():
 while True:
     tipi_pok()
     print("Scegli il tuo Pokemon iniziale: ")
-    scelta=input("Seleziona una scelta: ")
-    if scelta=="1":     
-        if scelta=="1":         #Pikachu
+    scelta=input("Seleziona una scelta: ")  
+    if scelta=="1":         #Pikachu
             ogg_pik=Pikachù()
             ogg_pik.set_nome()
             pok1.aggiungi_pok(ogg_pik)
             break
-        elif scelta=="2":       #Charmender
+    elif scelta=="2":       #Charmender
             ogg_pik=Charmander()
             ogg_pik.set_nome()
             pok1.aggiungi_pok(ogg_pik)        #creazione Charmender
             break
-        elif scelta=="3":       #Squirtle
+    elif scelta=="3":       #Squirtle
             ogg_pik=Squirtle()
             ogg_pik.set_nome()
             pok1.aggiungi_pok(ogg_pik)        #creazione Squirtle
             break
-        elif scelta=="4":       #Bulbasaur
+    elif scelta=="4":       #Bulbasaur
             ogg_pik=Bulbasaur()
             ogg_pik.set_nome()
             pok1.aggiungi_pok(ogg_pik)        #creazione Bulbasaur
-        else:
+    else:
             print("Scelta sbagliata.")
 
-print(pok1.lista_ogg)
-print(pok1.diz_cont)
+#print(pok1.lista_ogg)
+#print(pok1.diz_cont)
 
 print("IL GIOCO CONTINUA")
-
-
 
 def ricerca_cattura():
     print("E' stato avvistato un Pokemon:")
@@ -260,29 +264,34 @@ def ricerca_cattura():
         while hp_mio_pok>0 and hp_nemico>0:
             ns_att=ogg_pik.attacca()
             hp_nemico-=ns_att
+            print(f"HP pokemon selvatico: {hp_nemico}")
+            if hp_nemico<=0:
+                break
             nem_att=pokemon.attacca_casuale()
             hp_mio_pok-=nem_att
+            print(f"HP nostro pokemon: {hp_mio_pok}")
+
         if hp_nemico <=0:
             scelta=input("HAI VINTO! Vuoi aggiungere il pokemon nel pokedex? ").lower()
-            if scelta=="si":
+            if scelta=="si":        #---BISOGNA AUMENTARE IL LIVELLO DEL NOSTRO POKEMON---
                 pokemon.set_nome()
                 pok1.aggiungi_pok(pokemon)
             else:
                 print("Va bene")
         else:
-            print("Hai perso.")
-
-                
-    
-
+            print(f"Hai perso. Il pokemon {pokemon.razza} è scappato. ")                
+def menu():
+    print("\n1. Ricerca e cattura Pokemon\n2.Visualizza Pokedex\n")
 while True:
     menu()
     scelta=input("Inserisci la scelta: ")
     if scelta=="1":
         ricerca_cattura()
     elif scelta=="2":
-        pass
+        pok1.lista_oggetti_dett()
     elif scelta=="0":
         break
     else:
         print("Scelta sbagliata")
+
+print("---CHIUSURA GIOCO---")
