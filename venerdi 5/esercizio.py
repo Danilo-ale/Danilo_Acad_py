@@ -33,9 +33,7 @@ class Pikachù(Pokemon):
     
     def inc_livello(self):
         self.livello+=1
-        print("sono arrivato qui")
-        self.hp+=int((50/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
-        print("Punti vita aumentati")
+        self.hp+=int((5/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
         for mossa in self.mosse.keys():
             self.mosse[mossa]+=int((5/100)*self.mosse[mossa])
 
@@ -77,6 +75,12 @@ class Pikachù(Pokemon):
         else:
             print(f"La sua razza è {self.razza}. E' di livello {self.livello} il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
 
+    def set_livello(self,livello):
+        cont=1
+        while cont<=livello:
+            self.inc_livello()
+            cont+=1
+
 class Squirtle(Pokemon):
     razza = "Squirtle"
     tipo = "Acqua"
@@ -96,9 +100,7 @@ class Squirtle(Pokemon):
 
     def inc_livello(self):
         self.livello+=1
-        print("sono arrivato qui")
         self.hp+=int((5/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
-        print("Punti vita aumentati")
         for mossa in self.mosse.keys():
             self.mosse[mossa]+=int((5/100)*self.mosse[mossa])
 
@@ -126,6 +128,13 @@ class Squirtle(Pokemon):
             print(f"Il pokemon si chiama \"{self.nome}\". La sua razza è {self.razza}. E' di livello {self.livello}, il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
         else:
             print(f"La sua razza è {self.razza}. E' di livello {self.livello} il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
+
+    def set_livello(self,livello):
+        cont=1
+        while cont<=livello:
+            self.inc_livello()
+            cont+=1
+
 
 class Bulbasaur(Pokemon):
     razza = "Bulbasaur"
@@ -177,11 +186,16 @@ class Bulbasaur(Pokemon):
 
     def inc_livello(self):
         self.livello+=1
-        print("sono arrivato qui")
-        self.hp+=int((50/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
-        print("Punti vita aumentati")
+        self.hp+=int((5/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
         for mossa in self.mosse.keys():
             self.mosse[mossa]+=int((5/100)*self.mosse[mossa])
+
+    def set_livello(self,livello):
+        cont=1
+        while cont<=livello:
+            self.inc_livello()
+            cont+=1
+
 
 class Charmander(Pokemon):
     razza = "Charmander"
@@ -227,11 +241,16 @@ class Charmander(Pokemon):
 
     def inc_livello(self):
         self.livello+=1
-        print("sono arrivato qui")
-        self.hp+=int((50/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
-        print("Punti vita aumentati")
+        self.hp+=int((5/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
         for mossa in self.mosse.keys():
             self.mosse[mossa]+=int((5/100)*self.mosse[mossa])
+    
+    def set_livello(self,livello):
+        cont=1
+        while cont<=livello:
+            self.inc_livello()
+            cont+=1
+
 
     def info(self):
         if self.nome!="":
@@ -260,6 +279,7 @@ class Pokedex:
         else:
             print("Il pokemon con questo nome è già presente nel pokedex")
         
+        
     def ritorna_pok(self):
         pass        #FUNZIONE PER SCEGLIERE IL POKEMON TRA IL POKEDEX
 
@@ -270,6 +290,13 @@ class Pokedex:
             print(f"--->{x}. ",end="")
             pokemon.info()
             x+=1
+
+    def media_livello(self):
+        somma=0
+        for pokemon in self.lista_ogg:
+            somma+=pokemon.livello
+        media=int(somma/len(self.lista_ogg))
+        return media
 
 pok1=Pokedex()     #POKEDECK
 
@@ -322,7 +349,10 @@ def ricerca_cattura():
     elif scelta==4:       #genera Bulbasaur
         pokemon=Bulbasaur()
     
+    liv_medio=pok1.media_livello()
+    pokemon.set_livello(liv_medio)
     pokemon.info()
+    
 
     scelta=input("Vuoi attaccarlo? ").lower()
     if scelta=="si":        #DEVE SCEGLIERE IL POKEMON
@@ -341,15 +371,16 @@ def ricerca_cattura():
         if hp_nemico <=0:
             ogg_pik.inc_livello()
             scelta=input("HAI VINTO! Vuoi aggiungere il pokemon nel pokedex? ").lower()
-            if scelta=="si":        #---BISOGNA AUMENTARE IL LIVELLO DEL NOSTRO POKEMON---
+            if scelta=="si":       
                 pokemon.set_nome()
                 pok1.aggiungi_pok(pokemon)
             else:
                 print("Va bene")
         else:
-            print(f"Hai perso. Il pokemon {pokemon.razza} è scappato. ")                
+            print(f"Hai perso. Il pokemon {pokemon.razza} è scappato. ")    
+
 def menu():
-    print("\n1. Ricerca e cattura Pokemon\n2.Visualizza Pokedex\n")
+    print("\n1. Ricerca e cattura Pokemon\n2.Visualizza Pokedex\n0. Per uscire\n")
 while True:
     menu()
     scelta=input("Inserisci la scelta: ")
