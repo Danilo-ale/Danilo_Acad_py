@@ -1,16 +1,24 @@
 from random import randint, choice
 class Pokemon:
     def __init__(self):
-        self.__nome=""
+        self.nome=""
+        self.livello=1
 
     def stampa_nome(self):
-        print(f"Il nome di questo pokemon è {self.__nome}")
+        print(f"Il nome di questo pokemon è {self.nome}")
 
     def set_nome(self):
-        self.__nome = input("Indicare il nome del Pokemon: ")
+        self.nome = input("Indicare il nome del Pokemon: ")
 
     def get_nome(self):
-        return self.__nome
+        return self.nome
+
+    def get_livello(self):
+        return self.livello    
+
+    def inc_livello(self):
+        self.livello+=1
+
 
 class Pikachù(Pokemon):
     razza = "Pikachù"
@@ -22,6 +30,14 @@ class Pikachù(Pokemon):
         self.iv = randint(1,32)
         self.hp = self.hp + self.iv
         self.mosse = {"Azione":20,"Attacco Rapido":15,"Fulmine":25}
+    
+    def inc_livello(self):
+        self.livello+=1
+        print("sono arrivato qui")
+        self.hp+=int((50/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
+        print("Punti vita aumentati")
+        for mossa in self.mosse.keys():
+            self.mosse[mossa]+=int((5/100)*self.mosse[mossa])
 
     def attacca_casuale(self):      #attacca casuale pokemon selvatico
         lista_attacchi=list(self.mosse.keys())
@@ -48,11 +64,18 @@ class Pikachù(Pokemon):
             else:
                 print("Errore")
     
+    def attacca_casuale(self):      #attacca casuale pokemon selvatico
+        lista_attacchi=list(self.mosse.keys())
+        mossa=choice(lista_attacchi)
+        print(f"Il pokemon selvatico ha eseguito: \"{mossa}\"")
+        return self.mosse[mossa]       
+
+
     def info(self):
-        if self.__nome!="":
-            print(f"Il pokemon si chiama {self.__nome}. La sua razza è {self.razza}, il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
+        if self.nome!="":
+            print(f"Il pokemon si chiama \"{self.nome}\". La sua razza è {self.razza}. E' di livello {self.livello}, il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
         else:
-            print(f"La sua razza è {self.razza}, il suo tipo è {self.tipo},i suoi hp sono: {self.hp}")
+            print(f"La sua razza è {self.razza}. E' di livello {self.livello} il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
 
 class Squirtle(Pokemon):
     razza = "Squirtle"
@@ -70,6 +93,14 @@ class Squirtle(Pokemon):
         mossa=choice(lista_attacchi)
         print(f"Il pokemon selvatico ha eseguito: \"{mossa}\"")
         return self.mosse[mossa]       
+
+    def inc_livello(self):
+        self.livello+=1
+        print("sono arrivato qui")
+        self.hp+=int((5/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
+        print("Punti vita aumentati")
+        for mossa in self.mosse.keys():
+            self.mosse[mossa]+=int((5/100)*self.mosse[mossa])
 
     def attacca(self):
         attacco = 0
@@ -91,7 +122,10 @@ class Squirtle(Pokemon):
                 print("Errore")
     
     def info(self):
-        print(f"La sua razza è {self.razza}, il suo tipo è {self.tipo},i suoi hp sono: {self.hp}")
+        if self.nome!="":
+            print(f"Il pokemon si chiama \"{self.nome}\". La sua razza è {self.razza}. E' di livello {self.livello}, il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
+        else:
+            print(f"La sua razza è {self.razza}. E' di livello {self.livello} il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
 
 class Bulbasaur(Pokemon):
     razza = "Bulbasaur"
@@ -130,7 +164,24 @@ class Bulbasaur(Pokemon):
                 print("Errore")
     
     def info(self):
-        print(f"La sua razza è {self.razza}, il suo tipo è {self.tipo},i suoi hp sono: {self.hp}")
+        if self.nome!="":
+            print(f"Il pokemon si chiama \"{self.nome}\". La sua razza è {self.razza}. E' di livello {self.livello}, il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
+        else:
+            print(f"La sua razza è {self.razza}. E' di livello {self.livello} il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
+
+    def attacca_casuale(self):      #attacca casuale pokemon selvatico
+        lista_attacchi=list(self.mosse.keys())
+        mossa=choice(lista_attacchi)
+        print(f"Il pokemon selvatico ha eseguito: \"{mossa}\"")
+        return self.mosse[mossa]       
+
+    def inc_livello(self):
+        self.livello+=1
+        print("sono arrivato qui")
+        self.hp+=int((50/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
+        print("Punti vita aumentati")
+        for mossa in self.mosse.keys():
+            self.mosse[mossa]+=int((5/100)*self.mosse[mossa])
 
 class Charmander(Pokemon):
     razza = "Charmander"
@@ -168,9 +219,25 @@ class Charmander(Pokemon):
         print(f"Il pokemon selvatico ha eseguito: \"{mossa}\"")
         return self.mosse[mossa]   
 
-    
+    def attacca_casuale(self):      #attacca casuale pokemon selvatico
+        lista_attacchi=list(self.mosse.keys())
+        mossa=choice(lista_attacchi)
+        print(f"Il pokemon selvatico ha eseguito: \"{mossa}\"")
+        return self.mosse[mossa]       
+
+    def inc_livello(self):
+        self.livello+=1
+        print("sono arrivato qui")
+        self.hp+=int((50/100)*self.hp)            #INCREMENTO DEL 5% DI HP E ATTACCO
+        print("Punti vita aumentati")
+        for mossa in self.mosse.keys():
+            self.mosse[mossa]+=int((5/100)*self.mosse[mossa])
+
     def info(self):
-        print(f"La sua razza è {self.razza}, il suo tipo è {self.tipo},i suoi hp sono: {self.hp}")
+        if self.nome!="":
+            print(f"Il pokemon si chiama \"{self.nome}\". La sua razza è {self.razza}. E' di livello {self.livello}, il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
+        else:
+            print(f"La sua razza è {self.razza}. E' di livello {self.livello} il suo tipo è {self.tipo}, i suoi hp sono: {self.hp}")
 
 class Pokedex:
     def __init__(self):
@@ -272,6 +339,7 @@ def ricerca_cattura():
             print(f"HP nostro pokemon: {hp_mio_pok}")
 
         if hp_nemico <=0:
+            ogg_pik.inc_livello()
             scelta=input("HAI VINTO! Vuoi aggiungere il pokemon nel pokedex? ").lower()
             if scelta=="si":        #---BISOGNA AUMENTARE IL LIVELLO DEL NOSTRO POKEMON---
                 pokemon.set_nome()
