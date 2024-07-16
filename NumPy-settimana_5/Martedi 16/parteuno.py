@@ -11,10 +11,10 @@ Calcolare e stampare la somma di tutti gli elementi della matrice.
 Uscire dal programma.
 """
 import numpy as np
-
+#creazione della matrice
 def crea_matrice():
-    while True:
-        try:
+    while True: 
+        try:        #inserimento righe e colonne
             righe=int(input("Inserisci il numero di righe: "))
             break
         except:
@@ -31,22 +31,27 @@ def crea_matrice():
 
     return matrice,righe,col
 
+#calcolo sottomatrice dalla prima riga alla penultima, e dalla prima colonna alla penultima
 def sotto_matrice(matrice,righe,col):
     print(f"Sotto matrice centrale:\n {matrice[1:righe-1,1:col-1]}")
 
+#calcolo matrice trasposta
 def trasp_matrice(matrice):
     matr=matrice.T
     print(matr)
 
+#somma degli elementi della matrice
 def somma_elem(matrice):
     print(f"La somma della matrice è: {np.sum(matrice)}")
 
+#calcolo determinante della matrice se righe==col
 def det_mat(matrice,righe,col):
     if righe==col:
         print(f"Il determinante è: {np.linalg.det(matrice)}")
     else:
         print("Righe e colonne diverse. Non si può calcolare il determinante")
 
+#moltiplicazione element-wise
 def molt_elem_wise(mat,righe,col):
     mat2=np.random.randint(0,100,size=(righe,col))
     #moltiplicazione=np.dot(mat,mat2)
@@ -54,5 +59,6 @@ def molt_elem_wise(mat,righe,col):
     print(f"Seconda matrice generata:\n{mat2}")
     print(f"Moltiplicazione delle due matrici:\n {molt}")
 
+#calcolo media della matricd
 def media_mat(matrice):
     print(f"La media della matrice è: {np.mean(matrice)}")
