@@ -2,7 +2,8 @@ import parteuno as mod1     #import modulo con funzioni
 
 #menu
 def menu():
-    print("""1. Stampa matrice
+    print("""\nMenù:
+1. Stampa matrice
 2. Estrai sottomatrice
 3. Matrice trasposta        
 4. Somma elementi matrice
@@ -11,16 +12,18 @@ def menu():
 7. Calcolo determinante                     
 0. Esci
 """)
-    scelta_menu=input("Inserisci una scelta: ")
+    scelta_menu=input("\nScegli un opzione: ")
     return scelta_menu
 
 #main
 def main():
-    mat,righe,col=mod1.crea_matrice()
+    print("\nCreazione Matrice 2D...\n")
+    mat,righe,col=mod1.crea_matrice()   #creazione della matrice di partenza fuori dal while
+
     while True:
         scelta=menu()
-        if scelta=="1": #Stampa matrice
-            print(f"La matrice è:\n {mat}")
+        if scelta=="1":         #Stampa matrice
+            print(f"\nLa matrice 2D di partenza è:\n {mat}")
         elif scelta=="2":       #Estrai sottomatrice
             mod1.sotto_matrice(mat,righe,col)
         elif scelta=="3":       #Matrice trasposta
@@ -37,5 +40,11 @@ def main():
             break
         else:
             print("Scelta sbagliata")
+
+        nuova_scelta = input("\nVuoi effettuare un'altra operazione? ") #ripetibilità gestita tramite la richiesta di una nuova operazione
+        if nuova_scelta.lower() != "si":
+            print("\nSistema in chiusura. Arrivederci!")
+            break
+
 
 main()      #richiamo al main
