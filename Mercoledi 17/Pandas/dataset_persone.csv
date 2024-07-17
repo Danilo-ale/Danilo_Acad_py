@@ -1,0 +1,10 @@
+,nome,eta,citta,salario,Categoria eta
+0,Gino,20.0,Perugia,10000,Adulto
+1,Pino,90.0,,40000,Senior
+2,Giulia,38.57142857142857,Roma,10000,Adulto
+3,Sara,20.0,,30000,Adulto
+4,,30.0,Napoli,20000,Adulto
+5,Sara,38.57142857142857,Roma,20000,Adulto
+6,Pino,90.0,,20000,Senior
+7,Sara,10.0,Milano,10000,Giovane
+8,Sara,10.0,Milano,10000,Giovane
