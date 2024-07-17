@@ -45,11 +45,11 @@ while True:
         mod.agg_tot_vendite(df)
         contr_tot=True
     elif scelta=="2":
-        if contr_tot:
+        if contr_tot:       #CONTROLLA LA PRESENZA DELLA COLONNA TOTALE VENDITE
             mod.group_df(df)
         else:
             scelta=input("Nel dataFrame non c'è ancora la tabella vendite totali. Vuoi crearla per poi vedere il totale vendite raggruppato? ").lower()
-            if scelta=="si":
+            if scelta=="si":        #se non c'è la colonna, si crea e poi si effettua l'opzione selezionata
                 mod.agg_tot_vendite(df)
                 contr_tot=True
                 mod.group_df(df)
@@ -59,11 +59,11 @@ while True:
     elif scelta=="3":
         mod.prod_piu_vend(df)
     elif scelta=="4":
-        if contr_tot:
+        if contr_tot:       #CONTROLLA LA PRESENZA DELLA COLONNA TOTALE VENDITE
             mod.cit_vend_max(df)
         else:
             scelta=input("Nel dataFrame non c'è ancora la tabella vendite totali. Vuoi crearla prima di visualizza le città con le vendite massime? ").lower()
-            if scelta=="si":
+            if scelta=="si":        #se non c'è la colonna, si crea e poi si effettua l'opzione selezionata
                 mod.agg_tot_vendite(df)
                 contr_tot=True
                 mod.cit_vend_max(df)
@@ -72,22 +72,22 @@ while True:
     elif scelta=="5":
         mod.vend_sup_val(df)
     elif scelta=="6":
-        if contr_tot:
+        if contr_tot:       #CONTROLLA LA PRESENZA DELLA COLONNA TOTALE VENDITE
             mod.tot_vendite_dec(df)
         else:
             scelta=input("Nel dataFrame non c'è ancora la tabella vendite totali. Vuoi crearla per poi vederla ordinata in senso decrescente? ").lower()
-            if scelta=="si":
+            if scelta=="si":        #se non c'è la colonna, si crea e poi si effettua l'opzione selezionata
                 mod.agg_tot_vendite(df)
                 contr_tot=True
                 mod.tot_vendite_dec(df)
             else:
                 print("Ritorno al menu.")        
     elif scelta=="7":
-        if contr_tot:
+        if contr_tot:       #CONTROLLA LA PRESENZA DELLA COLONNA TOTALE VENDITE
             mod.vend_per_citta(df)
         else:
             scelta=input("Nel dataFrame non c'è ancora la tabella vendite totali. Vuoi crearla per poi vedere il numero di vendite per città? ").lower()
-            if scelta=="si":
+            if scelta=="si":    #se non c'è la colonna, si crea e poi si effettua l'opzione selezionata
                 mod.agg_tot_vendite(df)
                 contr_tot=True
                 mod.vend_per_citta(df)
