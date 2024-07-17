@@ -33,7 +33,7 @@ def menu():
 4. Città con maggior volume di vendite totali
 5. Visualizza nuovo frame con vendite superiori ad x
 6. Ordina Totale vendite in ordine decrescente
-7. Viauslizza il numero di vendite per ogni città
+7. Visualizza il numero di vendite per ogni città
 0. Esci
 """)
 

@@ -21,6 +21,7 @@ Visualizzare il numero di vendite per ogni città.
 """
 import pandas as pd
 import numpy as np
+
 #LEGGE I DATI DAL CSV
 def leggi_csv():
     df=pd.read_csv("5 settimana\\Mercoledi 17\\Pandas\\prodotti.csv")  #index_col=0 se il .csv ha la colonna indice alla prima colonna
@@ -58,7 +59,7 @@ def vend_sup_val(df):
             break
         except:
             print("Valore non intero, riprova")
-    
+            
     df_v = df[df["Totale vendite"] > val]
     if len(df_v)>0:     #CONTROLLO CHE CI SIA ALMENO UN ELEMENTO > X
         print(f"Le righe con il \"Totale vendite\" > {val}:\n{df_v}")
