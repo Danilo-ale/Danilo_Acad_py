@@ -1,0 +1,38 @@
+1. Generazione dei Dati: Utilizzare NumPy per generare una serie temporale
+di 365 giorni di dati, simulando il numero di visitatori giornalieri in
+un parco. Assumere che il numero medio di visitatori sia 2000 con una
+deviazione standard di 500. Inoltre, aggiungere un trend crescente nel
+tempo per simulare l'aumento della popolarità del parco.
+
+2. Creazione del DataFrame: Creare un DataFrame pandas con le date come
+indice e il numero di visitatori come colonna.
+
+4. Analisi dei Dati: Calcolare il numero medio di visitatori per mese e la
+deviazione standard.
+
+4. Visualizzazione dei Dati:
+-->Creare un grafico a linee del numero di visitatori giornalieri.
+-->Aggiungere al grafico la media mobile a 7 giorni per mostrare la
+   tendenza settimanale.
+-->Creare un secondo grafico che mostri la media mensile dei visitatori.
+
+-------------------------------------------------------
+
+---REQUISITI PROGRAMMA---
+1- GENERAZIONE DATI: il programma deve utilizzare numpy per 
+creare una serie temporale di 365 giorni, che saranno l'indice del
+df. Ad ogni giorno è associato un num di visitatori intorno a 2000, 
+con std=500. Aggiungere un tren crescente di visitatori.
+        --->tempo stimato: 15/20 minuti
+2--CREAZIONE DEL DATAFRAME: Creare df dai dati generati.
+        --->tempo stimato: 15 minuti
+
+3--ANALISI DEI DATI: Calcolare il num medio di visitatori per mese e std
+        --->Tempo stimato: 20/25 minuti
+
+4--VISUALIZZAZIONE DEI DATI: bisogna (1) creare grafico a linea di visitatori giornalieri
+        (2) aggiungere al grafico la media mobile a 7 giorni per 
+        visualizzare la tendenza settimanale
+        (3) Grafico media mensile visitatori
+
+        --->tempo stimato: 35/40 minuti
