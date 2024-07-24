@@ -15,7 +15,7 @@ def setup_driver():
 
 def dati_tab(driver):
     driver.get("https://www.w3schools.com/html/html_tables.asp")
-    print(driver.title)
+    #print(driver.title)
     time.sleep(1)
     button_privacy = driver.find_element(By.ID, "accept-choices")
     button_privacy.click()
@@ -31,7 +31,7 @@ def dati_tab(driver):
 
     col=driver.find_element(By.XPATH,"/html/body/div[5]/div[1]/div[1]/div[3]/div/table/tbody/tr[1]/th[3]")
     df_col.append(col.text)
-    print(df_col)
+    #print(df_col)
     riga_path="/html/body/div[5]/div[1]/div[1]/div[3]/div/table/tbody/tr["
     #/html/body/div[5]/div[1]/div[1]/div[3]/div/table/tbody/tr[2]
     #/html/body/div[5]/div[1]/div[1]/div[3]/div/table/tbody/tr[2]/td[1]
@@ -41,13 +41,15 @@ def dati_tab(driver):
     for riga in range(2,8):
         riga_spec=f"{riga_path}{riga}]/td[1]"
         Company=driver.find_element(By.XPATH, riga_spec)
+
         riga_spec=f"{riga_path}{riga}]/td[2]"
         Contact=driver.find_element(By.XPATH, riga_spec)
+
         riga_spec=f"{riga_path}{riga}]/td[3]"
         Country=driver.find_element(By.XPATH, riga_spec)
         righe.append({"Company":Company.text, "Contact":Contact.text, "Country":Country.text})
 
-    print(righe)
+    #print(righe)
     df=pd.DataFrame(righe, columns=df_col)
     print(df)
 
